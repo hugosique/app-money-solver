@@ -5,6 +5,8 @@ import { ConfigModule } from '@nestjs/config';
 
 import configuration from './shared/config/configuration';
 import { envValidationSchema } from './shared/config/env.validation';
+import { PrismaModule } from './infra/database/prisma.module';
+import { HealthModule } from './infra/http/health.module';
 
 @Module({
   imports: [
@@ -13,7 +15,9 @@ import { envValidationSchema } from './shared/config/env.validation';
       load: [configuration],
       cache: true,
       validationSchema: envValidationSchema
-    })
+    }),
+    PrismaModule,
+    HealthModule
   ],
   controllers: [AppController],
   providers: [AppService],
