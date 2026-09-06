@@ -7,6 +7,8 @@ import configuration from './shared/config/configuration';
 import { envValidationSchema } from './shared/config/env.validation';
 import { PrismaModule } from './infra/database/prisma.module';
 import { HealthModule } from './infra/http/health.module';
+import { UserModule } from './modules/users/infra/http/user.module';
+import { AuthModule } from './modules/auth/infra/http/auth.module';
 
 @Module({
   imports: [
@@ -14,10 +16,12 @@ import { HealthModule } from './infra/http/health.module';
       isGlobal: true,
       load: [configuration],
       cache: true,
-      validationSchema: envValidationSchema
+      validationSchema: envValidationSchema,
     }),
     PrismaModule,
-    HealthModule
+    HealthModule,
+    UserModule,
+    AuthModule,
   ],
   controllers: [AppController],
   providers: [AppService],
